@@ -45,6 +45,14 @@ exports.signUpUser = ({ email, username, password, user }) => {
           res(data[0] && { err: "Username already taken!" });
         }
       );
+      db.query(
+        "INSERT INTO user (email, username, password, user) VALUES ?",
+        [email, username, password, user],
+        (err, data) => {
+          if (err) throw err;
+          res.send("Successful");
+        }
+      );
     });
     return await wait;
   } catch (e) {
